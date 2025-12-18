@@ -10,6 +10,7 @@ test('Browser context Playwright', async ({browser})=>{
         await page.locator('#username').fill("rahulshettyacademy");
         await page.locator("[type='password']").fill("learning");
         await page.locator('#signInBtn').click();
+        console.log(await page.locator("[style*='block']").textContent());
         
         await context.close();
 
