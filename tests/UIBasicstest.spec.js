@@ -8,12 +8,17 @@ test('Browser context Playwright', async ({browser})=>{
         await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
         console.log(await page.title());
         await page.locator('#username').fill("rahulshettyacademy");
-        await page.locator("[type='password']").fill("learnings");
+        await page.locator("[type='password']").fill("learning");
         await page.locator('#signInBtn').click();
-        console.log(await page.locator("[style*='block']").textContent());
+        //console.log(await page.locator("[style*='block']").textContent());
 
-        await expect(page.locator("[style*='block']")).toHaveText("Incorrect username/password.");
+        //await expect(page.locator("[style*='block']")).toHaveText("Incorrect username/password.");
         
+        console.log(await page.locator('.card-body a').first().textContent());
+        console.log(await page.locator('.card-body a').nth(1).textContent());
+        console.log(await page.locator('.card-body a').allTextContents);
+
+
         await context.close();
 
 });
