@@ -38,6 +38,9 @@ test('Page Playwright test', async ({page})=>{
         
     })
     
-
+    await test.step("3. Search for Playwright", async() => {
+        await page.locator("[name='q']").fill("Playwright");
+        await page.locator("[name='q']").press('Enter');
+    }
 
 });
