@@ -44,3 +44,8 @@ test('Page Playwright test', async ({page})=>{
     }
 
 });
+
+test.only('Ecommerce page playwriht test', async ({page}) =>{
+
+    await
+})
