@@ -64,6 +64,7 @@ test.only('Login to the client app', async ({page})=>{
      if(await products.nth(i).locator("b").textContent() === productName){
         await products.nth(i).locator("text=Add To Cart").click();
         break;
+        
      }
     }
 
