@@ -1,0 +1,583 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Playwright-fundamentals/DatePicker.spec.ts >> Delta.com Date Picker >> should dynamically select a future departure and return date
+- Location: tests/Playwright-fundamentals/DatePicker.spec.ts:45:7
+
+# Error details
+
+```
+Error: locator.click: Error: strict mode violation: getByRole('dialog', { name: 'Choose Dates' }).getByRole('gridcell', { name: 'October 1, 2026' }) resolved to 2 elements:
+    1) <div role="gridcell" class="date-picker__content-dates-date">…</div> aka getByRole('grid', { name: 'October' }).locator('div').filter({ hasText: /^1$/ })
+    2) <button type="button" tabindex="-1" role="gridcell" class="date-button" data-date-value="10-1-2026" aria-label="October 1, 2026" aria-describedby="grid-help-date-picker-7ty8ptkoask">1</button> aka getByRole('gridcell', { name: 'October 1,', description: 'Use arrow keys to navigate. Up and down arrows move by week, left and right arrows move by day.' })
+
+Call log:
+  - waiting for getByRole('dialog', { name: 'Choose Dates' }).getByRole('gridcell', { name: 'October 1, 2026' })
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=f5e2]:
+  - generic [ref=f5e3]:
+    - button "Skip to main content" [ref=f5e6] [cursor=pointer]: Skip to Main Content
+    - navigation [ref=f5e7]:
+      - generic [ref=f5e9]:
+        - generic [ref=f5e13]:
+          - link [ref=f5e14] [cursor=pointer]:
+            - /url: /
+            - img "Delta Air Lines" [ref=f5e15]
+          - button "Skyteam" [ref=f5e16] [cursor=pointer]:
+            - img "Skyteam" [ref=f5e17]
+        - tablist [ref=f5e21]:
+          - generic [ref=f5e22]:
+            - tab "Book" [selected] [ref=f5e23] [cursor=pointer]
+            - complementary [ref=f5e24]
+            - tab "Check-in" [ref=f5e25] [cursor=pointer]
+            - tab "My Trips" [ref=f5e26] [cursor=pointer]
+            - tab "Flight Status" [ref=f5e27] [cursor=pointer]
+          - generic [ref=f5e28]:
+            - tab "Travel Info" [ref=f5e29] [cursor=pointer]
+            - tab "SkyMiles" [ref=f5e30] [cursor=pointer]
+            - tab "Need Help?" [ref=f5e31] [cursor=pointer]
+        - generic [ref=f5e35]:
+          - link "Sign Up" [ref=f5e37] [cursor=pointer]:
+            - /url: /joinskymiles/
+          - button "Log in, opens in new popup" [ref=f5e39] [cursor=pointer]: Log in
+        - button "notification, 3 unread" [ref=f5e42] [cursor=pointer]:
+          - generic [ref=f5e46]: "3"
+        - button "Search" [ref=f5e51] [cursor=pointer]
+      - region "Booking tabs and external links" [ref=f5e58]:
+        - tablist [ref=f5e61]:
+          - tab "Flights" [selected] [ref=f5e62] [cursor=pointer]
+          - tab "Stays" [ref=f5e67] [cursor=pointer]
+          - tab "Cars" [ref=f5e72] [cursor=pointer]
+          - tab "Vacations" [ref=f5e77] [cursor=pointer]
+          - tab "Cruises Opens in new tab" [ref=f5e82] [cursor=pointer]:
+            - generic [ref=f5e85]: Cruises
+        - generic "External links" [ref=f5e89]:
+          - button "Delta AMEX CardsThis link opens another site in a new window that may not follow the same accessibility policies as Delta Air Lines." [ref=f5e90] [cursor=pointer]:
+            - generic [ref=f5e98]: Delta AMEX Cards
+          - button "Gift CardsThis link opens another site in a new window that may not follow the same accessibility policies as Delta Air Lines." [ref=f5e103] [cursor=pointer]:
+            - generic [ref=f5e112]: Gift Cards
+          - button "Updated Bags & Travel FeesThis link opens another site in a new window that may not follow the same accessibility policies as Delta Air Lines." [ref=f5e113] [cursor=pointer]:
+            - generic [ref=f5e114]: Updated Bags & Travel Fees
+      - generic [ref=f5e121]:
+        - generic [ref=f5e122]:
+          - generic [ref=f5e123]:
+            - generic [ref=f5e129]:
+              - button "Origin, BLR, Bangalore, India" [ref=f5e130] [cursor=pointer]:
+                - generic [ref=f5e131]: BLR
+                - generic [ref=f5e132]: Bangalore, India
+              - button "Destination, MAA, Chennai, India" [ref=f5e133] [cursor=pointer]:
+                - generic [ref=f5e134]: MAA
+                - generic [ref=f5e135]: Chennai, India
+              - button "Swap origin and destination" [ref=f5e136] [cursor=pointer]
+            - combobox "Trip Type, Round Trip" [ref=f5e140] [cursor=pointer]:
+              - generic [ref=f5e141]:
+                - generic [ref=f5e142]: Trip Type
+                - generic [ref=f5e143]: Round Trip
+            - generic [ref=f5e146]:
+              - button "Flight Date Field, DepartDate - ReturnDate" [ref=f5e148] [cursor=pointer]:
+                - generic [ref=f5e149]: Depart - Return
+              - dialog "Choose Dates" [ref=f5e156]:
+                - generic [ref=f5e157]: Use arrow keys to navigate. Up and down arrows move by week, left and right arrows move by day.
+                - status [ref=f5e158]
+                - generic [ref=f5e159]:
+                  - button "Previous month, unavailable" [disabled] [ref=f5e161]
+                  - generic [ref=f5e163]:
+                    - heading "September 2026" [level=2] [ref=f5e164]
+                    - grid "September 2026" [ref=f5e165]:
+                      - row "Days of the week" [ref=f5e166]:
+                        - columnheader "Sunday" [ref=f5e167]: S
+                        - columnheader "Monday" [ref=f5e168]: M
+                        - columnheader "Tuesday" [ref=f5e169]: T
+                        - columnheader "Wednesday" [ref=f5e170]: W
+                        - columnheader "Thursday" [ref=f5e171]: T
+                        - columnheader "Friday" [ref=f5e172]: F
+                        - columnheader "Saturday" [ref=f5e173]: S
+                      - row [ref=f5e174]:
+                        - gridcell [ref=f5e175]:
+                          - button [disabled] [aria-hidden]
+                        - gridcell [ref=f5e176]:
+                          - button [disabled] [aria-hidden]
+                        - gridcell [ref=f5e177]:
+                          - gridcell "September 1, 2026, unavailable" [disabled] [ref=f5e178]: "1"
+                        - gridcell [ref=f5e179]:
+                          - gridcell "September 2, 2026, unavailable" [disabled] [ref=f5e180]: "2"
+                        - gridcell [ref=f5e181]:
+                          - gridcell "September 3, 2026, unavailable" [disabled] [ref=f5e182]: "3"
+                        - gridcell [ref=f5e183]:
+                          - gridcell "September 4, 2026, unavailable" [disabled] [ref=f5e184]: "4"
+                        - gridcell [ref=f5e185]:
+                          - gridcell "September 5, 2026, unavailable" [disabled] [ref=f5e186]: "5"
+                      - row [ref=f5e195]:
+                        - gridcell [ref=f5e196]:
+                          - gridcell "September 6, 2026, unavailable" [disabled] [ref=f5e197]: "6"
+                        - gridcell [ref=f5e198]:
+                          - gridcell "September 7, 2026, unavailable" [disabled] [ref=f5e199]: "7"
+                        - gridcell [ref=f5e200]:
+                          - gridcell "September 8, 2026, unavailable" [disabled] [ref=f5e201]: "8"
+                        - gridcell [ref=f5e202]:
+                          - gridcell "September 9, 2026, unavailable" [disabled] [ref=f5e203]: "9"
+                        - gridcell [ref=f5e204]:
+                          - gridcell "September 10, 2026, unavailable" [disabled] [ref=f5e205]: "10"
+                        - gridcell [ref=f5e206]:
+                          - gridcell "September 11, 2026, unavailable" [disabled] [ref=f5e207]: "11"
+                        - gridcell [ref=f5e208]:
+                          - gridcell "September 12, 2026, unavailable" [disabled] [ref=f5e209]: "12"
+                      - row [ref=f5e218]:
+                        - gridcell [ref=f5e219]:
+                          - gridcell "September 13, 2026, unavailable" [disabled] [ref=f5e220]: "13"
+                        - gridcell [ref=f5e221]:
+                          - gridcell "September 14, 2026, unavailable" [disabled] [ref=f5e222]: "14"
+                        - gridcell [ref=f5e223]:
+                          - gridcell "September 15, 2026, unavailable" [disabled] [ref=f5e224]: "15"
+                        - gridcell [ref=f5e225]:
+                          - gridcell "September 16, 2026, unavailable" [disabled] [ref=f5e226]: "16"
+                        - gridcell [ref=f5e227]:
+                          - gridcell "September 17, 2026, unavailable" [disabled] [ref=f5e228]: "17"
+                        - gridcell [ref=f5e229]:
+                          - gridcell "September 18, 2026, unavailable" [disabled] [ref=f5e230]: "18"
+                        - gridcell [ref=f5e231]:
+                          - gridcell "September 19, 2026, unavailable" [disabled] [ref=f5e232]: "19"
+                      - row [ref=f5e241]:
+                        - gridcell [ref=f5e242]:
+                          - gridcell "September 20, 2026, unavailable" [disabled] [ref=f5e243]: "20"
+                        - gridcell [ref=f5e244]:
+                          - gridcell "September 21, 2026, unavailable" [disabled] [ref=f5e245]: "21"
+                        - gridcell [ref=f5e246]:
+                          - gridcell "September 22, 2026, unavailable" [disabled] [ref=f5e247]: "22"
+                        - gridcell [ref=f5e248]:
+                          - gridcell "September 23, 2026, unavailable" [disabled] [ref=f5e249]: "23"
+                        - gridcell [ref=f5e250]:
+                          - gridcell "September 24, 2026, today" [active] [ref=f5e251] [cursor=pointer]: "24"
+                        - gridcell [ref=f5e252]:
+                          - gridcell "September 25, 2026" [ref=f5e253] [cursor=pointer]: "25"
+                        - gridcell [ref=f5e254]:
+                          - gridcell "September 26, 2026" [ref=f5e255] [cursor=pointer]: "26"
+                      - row [ref=f5e264]:
+                        - gridcell [ref=f5e265]:
+                          - gridcell "September 27, 2026" [ref=f5e266] [cursor=pointer]: "27"
+                        - gridcell [ref=f5e267]:
+                          - gridcell "September 28, 2026" [ref=f5e268] [cursor=pointer]: "28"
+                        - gridcell [ref=f5e269]:
+                          - gridcell "September 29, 2026" [ref=f5e270] [cursor=pointer]: "29"
+                        - gridcell [ref=f5e271]:
+                          - gridcell "September 30, 2026" [ref=f5e272] [cursor=pointer]: "30"
+                        - gridcell [ref=f5e273]:
+                          - button [disabled] [aria-hidden]
+                        - gridcell [ref=f5e274]:
+                          - button [disabled] [aria-hidden]
+                        - gridcell [ref=f5e275]:
+                          - button [disabled] [aria-hidden]
+                  - generic [ref=f5e284]:
+                    - heading "October 2026" [level=2] [ref=f5e285]
+                    - grid "October 2026" [ref=f5e286]:
+                      - row "Days of the week" [ref=f5e287]:
+                        - columnheader "Sunday" [ref=f5e288]: S
+                        - columnheader "Monday" [ref=f5e289]: M
+                        - columnheader "Tuesday" [ref=f5e290]: T
+                        - columnheader "Wednesday" [ref=f5e291]: W
+                        - columnheader "Thursday" [ref=f5e292]: T
+                        - columnheader "Friday" [ref=f5e293]: F
+                        - columnheader "Saturday" [ref=f5e294]: S
+                      - row [ref=f5e295]:
+                        - gridcell [ref=f5e296]:
+                          - button [disabled] [aria-hidden]
+                        - gridcell [ref=f5e297]:
+                          - button [disabled] [aria-hidden]
+                        - gridcell [ref=f5e298]:
+                          - button [disabled] [aria-hidden]
+                        - gridcell [ref=f5e299]:
+                          - button [disabled] [aria-hidden]
+                        - gridcell [ref=f5e300]:
+                          - gridcell "October 1, 2026" [ref=f5e301] [cursor=pointer]: "1"
+                        - gridcell [ref=f5e302]:
+                          - gridcell "October 2, 2026" [ref=f5e303] [cursor=pointer]: "2"
+                        - gridcell [ref=f5e304]:
+                          - gridcell "October 3, 2026" [ref=f5e305] [cursor=pointer]: "3"
+                      - row [ref=f5e314]:
+                        - gridcell [ref=f5e315]:
+                          - gridcell "October 4, 2026" [ref=f5e316] [cursor=pointer]: "4"
+                        - gridcell [ref=f5e317]:
+                          - gridcell "October 5, 2026" [ref=f5e318] [cursor=pointer]: "5"
+                        - gridcell [ref=f5e319]:
+                          - gridcell "October 6, 2026" [ref=f5e320] [cursor=pointer]: "6"
+                        - gridcell [ref=f5e321]:
+                          - gridcell "October 7, 2026" [ref=f5e322] [cursor=pointer]: "7"
+                        - gridcell [ref=f5e323]:
+                          - gridcell "October 8, 2026" [ref=f5e324] [cursor=pointer]: "8"
+                        - gridcell [ref=f5e325]:
+                          - gridcell "October 9, 2026" [ref=f5e326] [cursor=pointer]: "9"
+                        - gridcell [ref=f5e327]:
+                          - gridcell "October 10, 2026" [ref=f5e328] [cursor=pointer]: "10"
+                      - row [ref=f5e337]:
+                        - gridcell [ref=f5e338]:
+                          - gridcell "October 11, 2026" [ref=f5e339] [cursor=pointer]: "11"
+                        - gridcell [ref=f5e340]:
+                          - gridcell "October 12, 2026" [ref=f5e341] [cursor=pointer]: "12"
+                        - gridcell [ref=f5e342]:
+                          - gridcell "October 13, 2026" [ref=f5e343] [cursor=pointer]: "13"
+                        - gridcell [ref=f5e344]:
+                          - gridcell "October 14, 2026" [ref=f5e345] [cursor=pointer]: "14"
+                        - gridcell [ref=f5e346]:
+                          - gridcell "October 15, 2026" [ref=f5e347] [cursor=pointer]: "15"
+                        - gridcell [ref=f5e348]:
+                          - gridcell "October 16, 2026" [ref=f5e349] [cursor=pointer]: "16"
+                        - gridcell [ref=f5e350]:
+                          - gridcell "October 17, 2026" [ref=f5e351] [cursor=pointer]: "17"
+                      - row [ref=f5e360]:
+                        - gridcell [ref=f5e361]:
+                          - gridcell "October 18, 2026" [ref=f5e362] [cursor=pointer]: "18"
+                        - gridcell [ref=f5e363]:
+                          - gridcell "October 19, 2026" [ref=f5e364] [cursor=pointer]: "19"
+                        - gridcell [ref=f5e365]:
+                          - gridcell "October 20, 2026" [ref=f5e366] [cursor=pointer]: "20"
+                        - gridcell [ref=f5e367]:
+                          - gridcell "October 21, 2026" [ref=f5e368] [cursor=pointer]: "21"
+                        - gridcell [ref=f5e369]:
+                          - gridcell "October 22, 2026" [ref=f5e370] [cursor=pointer]: "22"
+                        - gridcell [ref=f5e371]:
+                          - gridcell "October 23, 2026" [ref=f5e372] [cursor=pointer]: "23"
+                        - gridcell [ref=f5e373]:
+                          - gridcell "October 24, 2026" [ref=f5e374] [cursor=pointer]: "24"
+                      - row [ref=f5e383]:
+                        - gridcell [ref=f5e384]:
+                          - gridcell "October 25, 2026" [ref=f5e385] [cursor=pointer]: "25"
+                        - gridcell [ref=f5e386]:
+                          - gridcell "October 26, 2026" [ref=f5e387] [cursor=pointer]: "26"
+                        - gridcell [ref=f5e388]:
+                          - gridcell "October 27, 2026" [ref=f5e389] [cursor=pointer]: "27"
+                        - gridcell [ref=f5e390]:
+                          - gridcell "October 28, 2026" [ref=f5e391] [cursor=pointer]: "28"
+                        - gridcell [ref=f5e392]:
+                          - gridcell "October 29, 2026" [ref=f5e393] [cursor=pointer]: "29"
+                        - gridcell [ref=f5e394]:
+                          - gridcell "October 30, 2026" [ref=f5e395] [cursor=pointer]: "30"
+                        - gridcell [ref=f5e396]:
+                          - gridcell "October 31, 2026" [ref=f5e397] [cursor=pointer]: "31"
+                  - button "Next month, November 2026" [ref=f5e407] [cursor=pointer]
+                - generic [ref=f5e409]:
+                  - button "Date Picker 7ty8ptkoask Clear Button" [ref=f5e410] [cursor=pointer]: Clear
+                  - button "Date Picker 7ty8ptkoask Done Button" [ref=f5e411] [cursor=pointer]: Done
+            - combobox "Passenger Count, 1" [ref=f5e414] [cursor=pointer]:
+              - generic [ref=f5e415]:
+                - generic [ref=f5e416]: Passenger Count
+                - generic [ref=f5e417]: "1"
+          - button "Find Flights" [ref=f5e420] [cursor=pointer]
+        - generic [ref=f5e421]:
+          - generic [ref=f5e422]:
+            - generic [ref=f5e423]:
+              - checkbox "Shop with Miles" [ref=f5e424] [cursor=pointer]
+              - generic [ref=f5e425] [cursor=pointer]: Shop with Miles
+            - generic [ref=f5e426]:
+              - checkbox "My Dates are Flexible" [ref=f5e427] [cursor=pointer]
+              - generic [ref=f5e428] [cursor=pointer]: My Dates are Flexible
+            - generic [ref=f5e429]:
+              - checkbox "Include Basic" [checked] [ref=f5e430] [cursor=pointer]
+              - generic [ref=f5e431] [cursor=pointer]: Include Basic
+            - generic [ref=f5e432]:
+              - button "Refundable Only Help Icon" [ref=f5e434] [cursor=pointer]
+              - generic [ref=f5e435]:
+                - checkbox "Refundable Only" [ref=f5e436] [cursor=pointer]
+                - generic [ref=f5e437] [cursor=pointer]: Refundable Only
+          - button "Advanced Search" [ref=f5e438] [cursor=pointer]
+  - main [ref=f5e442]:
+    - generic [ref=f5e443]:
+      - generic [ref=f5e446]:
+        - img "Image of seaside town" [ref=f5e448]
+        - generic [ref=f5e449]:
+          - link "Book Your Next Trip" [ref=f5e451] [cursor=pointer]:
+            - /url: /apac/en/travel-planning-center/find-your-destination/route-map
+          - link "Explore our current flight deals and plan your next adventure." [ref=f5e453] [cursor=pointer]:
+            - /url: /apac/en/travel-planning-center/find-your-destination/route-map
+          - button "Explore Offers" [ref=f5e455] [cursor=pointer]
+      - generic [ref=f5e457]:
+        - paragraph [ref=f5e459]: THE DELTA CUSTOMER EXPERIENCE
+        - paragraph [ref=f5e461]: Supporting You Through Your Travel Journey
+      - generic [ref=f5e464]:
+        - img "How Can I Change/Cancel My Flight?" [ref=f5e466]
+        - generic [ref=f5e467]:
+          - generic [ref=f5e468]:
+            - generic [ref=f5e469]: How Can I Change/Cancel My Flight?
+            - generic [ref=f5e471]: We understand that your plans may change. It’s simple to cancel or change your flight prior to departure on delta.com in just a few easy steps.
+          - link "Start a Change" [ref=f5e472] [cursor=pointer]:
+            - /url: /apac/en/travel-planning-center/travel-planning-overview#changeorcancel
+      - generic [ref=f5e474]:
+        - generic [ref=f5e475]:
+          - img "Discover Travel Products" [ref=f5e477]
+          - generic [ref=f5e478]:
+            - generic [ref=f5e479]:
+              - generic [ref=f5e480]: Discover Travel Products
+              - generic [ref=f5e482]: Explore products for all your travel needs. Choose from a la carte hotels, car rentals, cruises and vacation packages, and get exclusive SkyMiles® Member benefits.
+            - link "Details" [ref=f5e483] [cursor=pointer]:
+              - /url: https://www.delta.com/us/en/travel-planning-center/find-your-destination/travel-products?mkcpgn=hpBTF
+        - generic [ref=f5e484]:
+          - img "Ready For Adventure?" [ref=f5e486]
+          - generic [ref=f5e487]:
+            - generic [ref=f5e488]:
+              - generic [ref=f5e489]: Ready For Adventure?
+              - generic [ref=f5e491]: Explore flight deals to places you already love or discover new destinations that await you. Plan your next adventure today.
+            - link "Search Deals" [ref=f5e492] [cursor=pointer]:
+              - /url: /apac/en/flight-deals/current-flight-deals
+        - generic [ref=f5e493]:
+          - img "Elevate Your Flight Experience" [ref=f5e495]
+          - generic [ref=f5e496]:
+            - generic [ref=f5e497]:
+              - generic [ref=f5e498]: Elevate Your Flight Experience
+              - generic [ref=f5e500]: Stretch out and relax with more spacious seats in Delta Comfort or Delta First. Check out our Premium Cabin flight deals today.
+            - link "Details" [ref=f5e501] [cursor=pointer]:
+              - /url: https://www.delta.com/us/en/flight-deals/premium-cabin-flight-deals
+      - generic [ref=f5e504]:
+        - generic [ref=f5e505]:
+          - generic [ref=f5e506]:
+            - generic [ref=f5e507]: See Where You Can Fly With Delta
+            - generic [ref=f5e509]: Explore our entire network and discover more destinations with our new interactive route map.
+          - link "Explore Map" [ref=f5e510] [cursor=pointer]:
+            - /url: /apac/en/travel-planning-center/find-your-destination/route-map
+        - img "Image of the FlyDelta App" [ref=f5e512]
+      - generic [ref=f5e515]:
+        - img "Image of the FlyDelta App" [ref=f5e517]
+        - generic [ref=f5e518]:
+          - generic [ref=f5e519]:
+            - generic [ref=f5e520]: Everything You Need, All in One Place
+            - generic [ref=f5e522]: Download the Fly Delta app to check in, track your flight status, make changes to your trip, chat with a live agent and more.
+          - link "Go to Download" [ref=f5e523] [cursor=pointer]:
+            - /url: /apac/en/delta-digital/mobile
+  - generic [ref=f5e527]:
+    - generic [ref=f5e528]:
+      - generic [ref=f5e529]:
+        - generic [ref=f5e530]:
+          - textbox "Try Asking Me A Question" [ref=f5e531]:
+            - /placeholder: " "
+          - generic: Try Asking Me A Question
+        - button "Search" [ref=f5e532] [cursor=pointer]
+      - generic [ref=f5e537]:
+        - heading "Popular Topics:" [level=3] [ref=f5e538]
+        - list [ref=f5e539]:
+          - listitem [ref=f5e540]:
+            - link "Help Center" [ref=f5e541] [cursor=pointer]:
+              - /url: /apac/en/need-help/overview
+          - listitem [ref=f5e542]:
+            - link "Delta Discover Map" [ref=f5e543] [cursor=pointer]:
+              - /url: /apac/en/travel-planning-center/find-your-destination/explore-top-destinations
+          - listitem [ref=f5e544]:
+            - link "eCredits" [ref=f5e545] [cursor=pointer]:
+              - /url: /redeem-ecredit/
+    - separator [ref=f5e546]
+    - generic [ref=f5e550]:
+      - generic [ref=f5e551]:
+        - heading "About Delta" [level=3] [ref=f5e552]
+        - list [ref=f5e553]:
+          - listitem [ref=f5e554]:
+            - link "About Us" [ref=f5e555] [cursor=pointer]:
+              - /url: /apac/en/about-delta/overview
+          - listitem [ref=f5e556]:
+            - link "Careers" [ref=f5e557] [cursor=pointer]:
+              - /url: /apac/en/careers/overview
+          - listitem [ref=f5e558]:
+            - link [ref=f5e559] [cursor=pointer]:
+              - /url: https://news.delta.com
+              - text: News Hub
+              - img "open in new window" [ref=f5e560]
+          - listitem [ref=f5e563]:
+            - link [ref=f5e564] [cursor=pointer]:
+              - /url: https://ir.delta.com/home/default.aspx
+              - text: Investor Relations
+              - img "open in new window" [ref=f5e565]
+          - listitem [ref=f5e568]:
+            - link [ref=f5e569] [cursor=pointer]:
+              - /url: https://business.delta.com/
+              - text: Business Travel
+              - img "open in new window" [ref=f5e570]
+          - listitem [ref=f5e573]:
+            - link [ref=f5e574] [cursor=pointer]:
+              - /url: https://pro.delta.com/content/common/en/agencymap.html
+              - text: Travel Agents
+              - img "open in new window" [ref=f5e575]
+          - listitem [ref=f5e578]:
+            - link "Mobile App" [ref=f5e579] [cursor=pointer]:
+              - /url: /apac/en/delta-digital/mobile
+          - listitem [ref=f5e580]:
+            - link [ref=f5e581] [cursor=pointer]:
+              - /url: https://shop.delta.com
+              - text: Delta Shop
+              - img "open in new window" [ref=f5e582]
+      - generic [ref=f5e585]:
+        - heading "Customer Service" [level=3] [ref=f5e586]
+        - list [ref=f5e587]:
+          - listitem [ref=f5e588]:
+            - link "Help Center" [ref=f5e589] [cursor=pointer]:
+              - /url: /apac/en/need-help/overview
+          - listitem [ref=f5e590]:
+            - link "Message Us" [ref=f5e591] [cursor=pointer]:
+              - /url: /apac/en/need-help/overview#messageUs
+          - listitem [ref=f5e592]:
+            - link "Comment/Complaint" [ref=f5e593] [cursor=pointer]:
+              - /url: /apac/en/need-help/overview?commentComplaintsForm
+      - generic [ref=f5e594]:
+        - heading "Site Support" [level=3] [ref=f5e595]
+        - list [ref=f5e596]:
+          - listitem [ref=f5e597]:
+            - link "Login Help" [ref=f5e598] [cursor=pointer]:
+              - /url: /apac/en/need-help/support-skymiles
+          - listitem [ref=f5e599]:
+            - link "Site Map" [ref=f5e600] [cursor=pointer]:
+              - /url: /apac/en/sitemap
+          - listitem [ref=f5e601]:
+            - link "Browser Compatibility" [ref=f5e602] [cursor=pointer]:
+              - /url: /apac/en/need-help/browser-compatibility
+          - listitem [ref=f5e603]:
+            - link "Accessibility" [ref=f5e604] [cursor=pointer]:
+              - /url: /apac/en/legal/notices/accessibility
+          - listitem [ref=f5e605]:
+            - link "Booking Information" [ref=f5e606] [cursor=pointer]:
+              - /url: /apac/en/booking-information/overview
+      - generic [ref=f5e607]:
+        - heading "Policies" [level=3] [ref=f5e608]
+        - list [ref=f5e609]:
+          - listitem [ref=f5e610]:
+            - link "Customer Service Plan" [ref=f5e611] [cursor=pointer]:
+              - /url: /apac/en/legal/customer-commitment
+          - listitem [ref=f5e612]:
+            - link "Tarmac Delay Plan" [ref=f5e613] [cursor=pointer]:
+              - /url: /apac/en/legal/plan-for-tarmac-delays
+          - listitem [ref=f5e614]:
+            - link "Legal" [ref=f5e615] [cursor=pointer]:
+              - /url: /apac/en/legal/notices/overview
+          - listitem [ref=f5e616]:
+            - link "Sustainability" [ref=f5e617] [cursor=pointer]:
+              - /url: /apac/en/about-delta/sustainability
+          - listitem [ref=f5e618]:
+            - link "Contract of Carriage" [ref=f5e619] [cursor=pointer]:
+              - /url: /apac/en/legal/contract-of-carriage-dgr
+          - listitem [ref=f5e620]:
+            - link "Cookies, Privacy & Security" [ref=f5e621] [cursor=pointer]:
+              - /url: /apac/en/legal/privacy-and-security
+          - listitem [ref=f5e622]:
+            - link "Combatting Modern Slavery (PDF)" [ref=f5e623] [cursor=pointer]:
+              - /url: /content/dam/delta-www/pdfs/combatting-modern-slavery-human-trafficking-sexual-exploitation.pdf
+    - generic [ref=f5e625]:
+      - paragraph [ref=f5e630]: This link opens another site in a new window that may not follow the same accessibility policies as Delta Air Lines.
+      - generic [ref=f5e631]:
+        - paragraph [ref=f5e632]:
+          - text: © 2026 Delta Air Lines, Inc.
+          - generic [ref=f5e633]: "|"
+          - text: Travel may be on other airlines.
+        - paragraph [ref=f5e634]:
+          - text: Terms and conditions apply to all offers and SkyMiles benefits. See specific offer for details, and visit
+          - link "SkyMiles Membership Guide & Program Rules" [ref=f5e635] [cursor=pointer]:
+            - /url: /apac/en/skymiles/program-resources/program-rules
+    - generic [ref=f5e636]:
+      - generic [ref=f5e639]:
+        - img "Facebook" [ref=f5e641] [cursor=pointer]
+        - img "X" [ref=f5e643] [cursor=pointer]
+      - generic [ref=f5e648]:
+        - button "Link to change the language" [ref=f5e652] [cursor=pointer]: India - English
+        - generic [ref=f5e653]: Link to change the language
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect, Page } from "@playwright/test";
+  2  | 
+  3  | /**
+  4  |  * Dynamically selects a date on the Delta.com date picker calendar.
+  5  |  * The calendar shows two months side-by-side with h2 headings (e.g. "September 2026").
+  6  |  * Days are gridcells with accessible names like "October 1, 2026".
+  7  |  * Navigates forward month-by-month until the target month/year is visible,
+  8  |  * then clicks the target day.
+  9  |  */
+  10 | async function selectDateFromPicker(page: Page, targetDate: Date) {
+  11 |   const targetMonth = targetDate.toLocaleString("en-US", { month: "long" });   // "October"
+  12 |   const targetYear = targetDate.getFullYear().toString();                       // "2026"
+  13 |   const targetDay = targetDate.getDate().toString();                            // "1"
+  14 |   const monthYearLabel = `${targetMonth} ${targetYear}`;                        // "October 2026"
+  15 | 
+  16 |   // The calendar dialog shows two months with h2 headings
+  17 |   const calendarDialog = page.getByRole("dialog", { name: "Choose Dates" });
+  18 |   const nextMonthBtn = calendarDialog.getByRole("button", { name: /Next month/i });
+  19 | 
+  20 |   // Navigate forward until the target month heading is visible (max 12 clicks)
+  21 |   for (let attempt = 0; attempt < 12; attempt++) {
+  22 |     const monthHeading = calendarDialog.getByRole("heading", { name: monthYearLabel });
+  23 |     if (await monthHeading.isVisible().catch(() => false)) {
+  24 |       break;
+  25 |     }
+  26 |     await nextMonthBtn.click();
+  27 |     await page.waitForTimeout(300);
+  28 |   }
+  29 | 
+  30 |   // Click the target day — gridcell accessible name is "October 1, 2026"
+  31 |   const dayLabel = `${targetMonth} ${targetDay}, ${targetYear}`;
+> 32 |   await calendarDialog.getByRole("gridcell", { name: dayLabel }).click();
+     |                                                                  ^ Error: locator.click: Error: strict mode violation: getByRole('dialog', { name: 'Choose Dates' }).getByRole('gridcell', { name: 'October 1, 2026' }) resolved to 2 elements:
+  33 | }
+  34 | 
+  35 | test.describe("Delta.com Date Picker", () => {
+  36 | 
+  37 |   test.beforeEach(async ({ page }) => {
+  38 |     await page.goto("https://www.delta.com/apac/en");
+  39 | 
+  40 |     // Dismiss cookie consent banner if present
+  41 |     const acceptBtn = page.getByRole("button", { name: "Accept All" });
+  42 |     await acceptBtn.click({ timeout: 5000 }).catch(() => {});
+  43 |   });
+  44 | 
+  45 |   test("should dynamically select a future departure and return date", async ({ page }) => {
+  46 | 
+  47 |     // --- Step 1: Set Origin (From) ---
+  48 |     await page.getByRole("button", { name: /Origin/ }).click();
+  49 |     const originSearchInput = page.getByRole("textbox", { name: "Origin" });
+  50 |     await originSearchInput.fill("BLR");
+  51 |     await page.getByRole("option", { name: /BLR.*Bangalore/ }).click();
+  52 | 
+  53 |     // --- Step 2: Set Destination (To) ---
+  54 |     await page.getByRole("button", { name: /Destination/ }).click();
+  55 |     const destSearchInput = page.getByRole("textbox", { name: /Destination/i });
+  56 |     await destSearchInput.fill("MAA");
+  57 |     await page.getByRole("option", { name: /MAA.*Chennai/ }).click();
+  58 | 
+  59 |     // --- Step 3: Dynamically compute target dates ---
+  60 |     const today = new Date();
+  61 | 
+  62 |     const departureDate = new Date(today);
+  63 |     departureDate.setDate(today.getDate() + 7); // 1 week from today
+  64 | 
+  65 |     const returnDate = new Date(departureDate);
+  66 |     returnDate.setDate(departureDate.getDate() + 5); // 5 days after departure
+  67 | 
+  68 |     // --- Step 4: Open date picker and select departure date ---
+  69 |     await page.getByRole("button", { name: /Depart/ }).click();
+  70 |     await selectDateFromPicker(page, departureDate);
+  71 | 
+  72 |     // --- Step 5: Select return date (calendar stays open after departure) ---
+  73 |     await selectDateFromPicker(page, returnDate);
+  74 | 
+  75 |     // --- Step 6: Click "Done" to confirm ---
+  76 |     await page.getByRole("button", { name: "Done" }).click();
+  77 | 
+  78 |     // --- Step 7: Assertions ---
+  79 |     const departureDayFormatted = departureDate.toLocaleDateString("en-US", {
+  80 |       month: "short",
+  81 |       day: "numeric",
+  82 |     });
+  83 |     const returnDayFormatted = returnDate.toLocaleDateString("en-US", {
+  84 |       month: "short",
+  85 |       day: "numeric",
+  86 |     });
+  87 | 
+  88 |     // Verify the selected dates are reflected on the booking widget
+  89 |     await expect(page.getByText(departureDayFormatted).first()).toBeVisible();
+  90 |     await expect(page.getByText(returnDayFormatted).first()).toBeVisible();
+  91 |   });
+  92 | });
+```
