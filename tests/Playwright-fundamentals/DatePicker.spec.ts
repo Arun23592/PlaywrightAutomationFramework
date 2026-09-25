@@ -2,96 +2,92 @@ import { test, expect, Page } from "@playwright/test";
 
 /**
  * Dynamically selects a date on the Delta.com date picker calendar.
+ * The calendar shows two months side-by-side with h2 headings (e.g. "September 2026").
+ * Days are gridcells with accessible names like "October 1, 2026".
  * Navigates forward month-by-month until the target month/year is visible,
  * then clicks the target day.
  */
 async function selectDateFromPicker(page: Page, targetDate: Date) {
-  const targetMonth = targetDate.toLocaleString("en-US", { month: "long" });
-  const targetYear = targetDate.getFullYear().toString();
-  const targetDay = targetDate.getDate().toString();
+    const targetMonth = targetDate.toLocaleString("en-US", { month: "long" });   // "October"
+    const targetYear = targetDate.getFullYear().toString();                       // "2026"
+    const targetDay = targetDate.getDate().toString();                            // "1"
+    const monthYearLabel = `${targetMonth} ${targetYear}`;                        // "October 2026"
 
-  const calendarHeader = page.locator(".monthYear");
-  const nextMonthBtn = page.locator('button[aria-label="Next Month"]');
+    // The calendar dialog shows two months with h2 headings
+    const calendarDialog = page.getByRole("dialog", { name: "Choose Dates" });
+    const nextMonthBtn = calendarDialog.getByRole("button", { name: /Next month/i });
 
-  // Navigate forward month-by-month until the target month/year is displayed
-  for (let attempt = 0; attempt < 12; attempt++) {
-    const headerText = await calendarHeader.first().textContent();
-    if (headerText?.includes(targetMonth) && headerText?.includes(targetYear)) {
-      break;
+    // Navigate forward until the target month heading is visible (max 12 clicks)
+    for (let attempt = 0; attempt < 12; attempt++) {
+        const monthHeading = calendarDialog.getByRole("heading", { name: monthYearLabel });
+        if (await monthHeading.isVisible().catch(() => false)) {
+            break;
+        }
+        await nextMonthBtn.click();
+        await page.waitForTimeout(300);
     }
-    await nextMonthBtn.click();
-    await page.waitForTimeout(300); // brief pause for calendar animation
-  }
 
-  // Click the specific day — Delta uses aria-label like "25 December 2026"
-  const dayLabel = `${targetDay} ${targetMonth} ${targetYear}`;
-  await page.getByLabel(dayLabel, { exact: true }).click();
+    // Click the target day button — each day has a wrapper div + button, both with role="gridcell"
+    // Target the <button> specifically via its aria-label (e.g. "October 1, 2026")
+    const dayLabel = `${targetMonth} ${targetDay}, ${targetYear}`;
+    await calendarDialog.locator(`button[aria-label="${dayLabel}"]`).click();
 }
 
 test.describe("Delta.com Date Picker", () => {
 
-  test.beforeEach(async ({ page }) => {
-    await page.goto("https://www.delta.com/apac/en");
+    test.beforeEach(async ({ page }) => {
+        await page.goto("https://www.delta.com/apac/en");
 
-    // Dismiss cookie consent banner if present
-    const acceptBtn = page.getByRole("button", { name: "Accept All" });
-    if (await acceptBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
-      await acceptBtn.click();
-    }
-  });
-
-  test("should dynamically select a future departure and return date", async ({ page }) => {
-
-    // --- Step 1: Set Origin (From) ---
-    // Origin is rendered as a <button> with label "Origin, BLR, Bangalore, India"
-    await page.getByRole("button", { name: /Origin/ }).click();
-
-    // After clicking, a predictive search input appears — clear and type
-    const originSearchInput = page.locator('[id^="predictive_search"]');
-    await originSearchInput.fill("BLR");
-    await page.getByText("BLR Bengaluru, India").click();
-
-    // --- Step 2: Set Destination (To) ---
-    // Destination button has a verbose accessible name
-    await page.getByRole("button", { name: /Destination/ }).click();
-    const destSearchInput = page.getByRole("textbox", { name: "Destination" });
-    await destSearchInput.fill("MAA");
-    await page.getByText("MAA Chennai, India", { exact: true }).click();
-
-    // --- Step 3: Dynamically compute target dates ---
-    const today = new Date();
-
-    const departureDate = new Date(today);
-    departureDate.setDate(today.getDate() + 7); // 1 week from today
-
-    const returnDate = new Date(departureDate);
-    returnDate.setDate(departureDate.getDate() + 5); // 5 days after departure
-
-    // --- Step 4: Open date picker and select departure date ---
-    await page.getByRole("button", { name: /Depart/ }).click();
-    await selectDateFromPicker(page, departureDate);
-
-    // --- Step 5: Select return date (calendar stays open after departure) ---
-    await selectDateFromPicker(page, returnDate);
-
-    // Click "Done" to confirm the date selection (if present)
-    const doneBtn = page.getByRole("button", { name: "Done" });
-    if (await doneBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await doneBtn.click();
-    }
-
-    // --- Step 6: Assertions ---
-    const departureDayFormatted = departureDate.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
-    const returnDayFormatted = returnDate.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
+        // Dismiss cookie consent banner if present
+        const acceptBtn = page.getByRole("button", { name: "Accept All" });
+        await acceptBtn.click({ timeout: 5000 }).catch(() => { });
     });
 
-    // Verify the selected dates are reflected on the booking widget
-    await expect(page.getByText(departureDayFormatted).first()).toBeVisible();
-    await expect(page.getByText(returnDayFormatted).first()).toBeVisible();
-  });
+    test("should dynamically select a future departure and return date", async ({ page }) => {
+
+        // --- Step 1: Set Origin (From) ---
+        await page.getByRole("button", { name: /Origin/ }).click();
+        const originSearchInput = page.getByRole("textbox", { name: "Origin" });
+        await originSearchInput.fill("BLR");
+        await page.getByRole("option", { name: /BLR.*Bangalore/ }).click();
+
+        // --- Step 2: Set Destination (To) ---
+        await page.getByRole("button", { name: /Destination/ }).click();
+        const destSearchInput = page.getByRole("textbox", { name: /Destination/i });
+        await destSearchInput.fill("MAA");
+        await page.getByRole("option", { name: /MAA.*Chennai/ }).click();
+
+        // --- Step 3: Dynamically compute target dates ---
+        const today = new Date();
+
+        const departureDate = new Date(today);
+        departureDate.setDate(today.getDate() + 7); // 1 week from today
+
+        const returnDate = new Date(departureDate);
+        returnDate.setDate(departureDate.getDate() + 5); // 5 days after departure
+
+        // --- Step 4: Open date picker and select departure date ---
+        await page.getByRole("button", { name: /Depart/ }).click();
+        await selectDateFromPicker(page, departureDate);
+
+        // --- Step 5: Select return date (calendar stays open after departure) ---
+        await selectDateFromPicker(page, returnDate);
+
+        // --- Step 6: Click "Done" to confirm ---
+        await page.getByRole("button", { name: "Done" }).click();
+
+        // --- Step 7: Assertions ---
+        const departureDayFormatted = departureDate.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+        });
+        const returnDayFormatted = returnDate.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+        });
+
+        // Verify the selected dates are reflected on the booking widget
+        await expect(page.getByText(departureDayFormatted).first()).toBeVisible();
+        await expect(page.getByText(returnDayFormatted).first()).toBeVisible();
+    });
 });
