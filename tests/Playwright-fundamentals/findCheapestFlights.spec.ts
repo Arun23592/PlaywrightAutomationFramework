@@ -41,6 +41,52 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
 
 
+    const oneWaySelectors = [
+        "li[data-cy="oneWayTrip"]",
+        '[class*="oneWay"]',
+        'li:has-text("One Way")'
+
+
+    ]
+
+    let oneWayClicked = false;
+
+    for (const selectors of oneWaySelectors) {
+        const element = page.locator(selectors).first();
+
+        const exists = element.isVisible().catch(() => false);
+
+        if (exists) {
+            const classes = await element.getAttribute('class') ?? '';
+
+            const isAlreadyActive = classes.includes('active') ||
+                classes.includes('selected') ||
+                classes.includes('tabSelected');
+
+
+            if (isAlreadyActive) {
+                await element.click();
+                console.log(`Cliecked one way with : ${selectors}`);
+
+                await page.waitForTimeout(500);
+
+            } else {
+                console.log(`One way already selected - skipping clicking`);
+
+            }
+            oneWayClicked = true;
+            break;
+        }
+
+
+    }
+
+    // if(!oneWayClicked){
+    //         await page.evaluate(() => {
+
+    //         })
+    // }
+
 
 
 
