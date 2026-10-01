@@ -47,7 +47,7 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
         'li:has-text("One Way")'
 
 
-    ]
+    ];
 
     let oneWayClicked = false;
 
