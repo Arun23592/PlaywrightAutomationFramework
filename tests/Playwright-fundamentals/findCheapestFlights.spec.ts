@@ -81,11 +81,16 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
     }
 
-    // if(!oneWayClicked){
-    //         await page.evaluate(() => {
+    if (!oneWayClicked) {
 
-    //         })
-    // }
+        await page.evaluate(() => {
+            const tabS = Array.from(document.querySelectorAll('li button, span'));
+            const oneWay = tabS.find(el => el.textContent?.trim() === 'One Way');
+            if (oneWay) (oneWay as HTMLElement).click();
+        });
+
+        console.log(`Clicked One Way via Javascript fallback`);
+    }
 
 
 
