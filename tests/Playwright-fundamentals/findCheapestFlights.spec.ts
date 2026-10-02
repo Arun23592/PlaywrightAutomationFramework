@@ -42,7 +42,7 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
 
     const oneWaySelectors = [
-        "li[data-cy="oneWayTrip"]",
+        "li[data-cy='oneWayTrip']",
         '[class*="oneWay"]',
         'li:has-text("One Way")'
 
