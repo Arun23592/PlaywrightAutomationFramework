@@ -92,6 +92,8 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
         console.log(`Clicked One Way via Javascript fallback`);
     }
 
+    console.log(`Step 2 completed: One way Selected`)
+
 
 
 
