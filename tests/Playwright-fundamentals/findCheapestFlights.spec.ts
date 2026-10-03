@@ -9,13 +9,14 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
 
 
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(2000);
 
 
     const popupSelectors = [
         '[data-cy="closeModal"]',
         '.commonModal__close',
-        'span[class*="close"]'
+        'span[class*="close"]',
+        '.modal__close'
 
 
     ];
@@ -37,7 +38,7 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
 
     await expect(page).toHaveURL("https://www.makemytrip.com/");
-    console.log(`Step 1 Complete: Page loaded, popups handled`);
+    console.log(`Step 1 Completed: Page loaded, popups handled`);
 
 
 
@@ -45,8 +46,6 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
         "li[data-cy='oneWayTrip']",
         '[class*="oneWay"]',
         'li:has-text("One Way")'
-
-
     ];
 
     let oneWayClicked = false;
@@ -97,9 +96,35 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
 
 
+    //STEP 3: Set From (Delhi) and To (Mumbai)
+
+    const fromFeild = page.locator('[data-cy= "fromCity"]').first();
+    await fromFeild.click();
+    await page.keyboard.press('Control+A');
+    await page.keyboard.type('Delhi', { delay: 100 });
+    await page.waitForSelector('[class*="autoSuggest"]', { state: 'visible', timeout: 5000 });
+    await page.locator('[class*="autoSuggest"]').first().click();
+    await page.waitForTimeout(500);
+
+
+    const toFeild = page.locator('[data-cy="toCity"]').first();
+    await toFeild.click();
+    await page.keyboard.press('Control+A');
+    await page.keyboard.type('Chennai', { delay: 100 });
+    await page.waitForSelector('[class*="autoSuggest"]', { state: 'visible', timeout: 5000 });
+    await page.locator('[class*="autoSuggest"]').first().click();
+    await page.waitForTimeout(500);
 
 
 
 
 
 });
+
+//--Type definition--------
+interface DayPrice {
+    element: ReturnType<Page['locator']>;
+}
+async function findCheapestDate(page: Page): Promise<DayPrice> {
+
+}
