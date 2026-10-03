@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { count } from "console";
 
 test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
@@ -124,7 +125,37 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 //--Type definition--------
 interface DayPrice {
     element: ReturnType<Page['locator']>;
+    price: number;
+    dateText: string;
+    index: number;
 }
 async function findCheapestDate(page: Page): Promise<DayPrice> {
+
+    const daySelectors = [
+        '.DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker--outside)',
+
+
+    ]
+
+    // Locate all calendar day cells that are not disabled/past
+    let dayCells = page.locator(daySelectors[0]);
+
+    let dayCount = 0;
+
+    console.log(`Total avaiable dates: ${dayCount}`);
+
+    for (const selector of daySelectors) {
+        dayCells = page.locator(selector);
+        dayCount = await dayCells.count().catch(() => 0);
+
+        if (dayCount > 0) {
+            break;
+        }
+
+        if (dayCount === 0) throw new Error('No available days found');
+
+
+
+    }
 
 }
