@@ -5,7 +5,7 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
     await page.goto("https://www.makemytrip.com/", {
         waitUntil: 'domcontentloaded',
-        timeout: 30_000,
+        timeout: 50_000,
     });
 
 
@@ -26,15 +26,26 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
     for (const selectors of popupSelectors) {
 
         const closeBtn = page.locator(selectors).first();
-        const isVisible = await closeBtn.isVisible().catch(() => false);
+        // const isVisible = await closeBtn.isVisible().catch(() => false);
 
-        if (isVisible) {
-            console.log(`Closing popup with selector: ${selectors}`);
+
+        try {
+            await closeBtn.waitFor({
+                state: 'visible',
+                timeout: 1500
+            });
+            console.log(` popup found : ${selectors}`);
+
             await closeBtn.click();
-            await page.waitForTimeout(1000);
-            break;
+
+            return;
+
+        } catch {
+            console.log(`Pop not found with this selector`);
         }
     }
+
+
 
 
 
@@ -54,7 +65,7 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
     for (const selectors of oneWaySelectors) {
         const element = page.locator(selectors).first();
 
-        const exists = element.isVisible().catch(() => false);
+        const exists = await element.isVisible().catch(() => false);
 
         if (exists) {
             const classes = await element.getAttribute('class') ?? '';
