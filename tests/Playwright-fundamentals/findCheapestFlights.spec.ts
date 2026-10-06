@@ -32,17 +32,19 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
         try {
             await closeBtn.waitFor({
                 state: 'visible',
-                timeout: 1500
+                timeout: 5000
             });
             console.log(` popup found : ${selectors}`);
 
             await closeBtn.click();
 
-            return;
+            // return;
 
         } catch {
             console.log(`Pop not found with this selector`);
         }
+
+
     }
 
 
@@ -128,7 +130,9 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
     await page.waitForTimeout(500);
 
 
-
+    //STEP 4: select calender date
+    const cheapestDate = await findCheapestDate(page);
+    console.log(`Chepest date found:`)
 
 
 });
@@ -168,5 +172,9 @@ async function findCheapestDate(page: Page): Promise<DayPrice> {
 
 
     }
+
+
+
+
 
 }
