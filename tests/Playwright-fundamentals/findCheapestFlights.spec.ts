@@ -170,8 +170,6 @@ async function findCheapestDate(page: Page): Promise<DayPrice> {
         if (dayCount === 0) throw new Error('No available days found');
 
 
-
-
     }
 
 
