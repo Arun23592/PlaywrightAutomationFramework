@@ -39,6 +39,7 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
             await closeBtn.click();
 
             // return;
+            console.log("Popup closed successfully");
 
         } catch {
             console.log(`Pop not found with this selector`);
@@ -114,10 +115,32 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
     const fromFeild = page.locator('[data-cy= "fromCity"]').first();
     await fromFeild.click();
-    await page.keyboard.press('Control+A');
-    await page.keyboard.type('Delhi', { delay: 100 });
-    await page.waitForSelector('[class*="autoSuggest"]', { state: 'visible', timeout: 5000 });
-    await page.locator('[class*="autoSuggest"]').first().click();
+
+    const fromSearchInput = page.locator(
+        '[data-cy="fromCity"] input, ' +    // Input inside the cy container
+        'input[placeholder*="From"], ' +    // Placeholder-based
+        'input[placeholder*="Leaving"], ' +    // Alt placeholder
+        '.react-autosuggest__input'                    // React autocomplete input
+    ).first();
+
+    // await fromSearchInput.waitFor({ state: 'visible', timeout: 8000 });
+
+    await fromSearchInput.fill('Delhi');
+
+
+    // await page.keyboard.press('Control+A');
+    // await page.keyboard.type('Delhi', { delay: 100 });
+    await page.waitForSelector('[class*="autoSuggest"]', { state: 'visible', timeout: 10_000 });
+
+    await page.waitForTimeout(300);
+
+    const fromFirstSuggestion = page.locator('[class*="autoSuggest"]').first();
+
+    await fromFirstSuggestion.click();
+
+
+    console.log(`FROM selected : ${await fromFirstSuggestion.textContent()}`);
+
     await page.waitForTimeout(500);
 
 
