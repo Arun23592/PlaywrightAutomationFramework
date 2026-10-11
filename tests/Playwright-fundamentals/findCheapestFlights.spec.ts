@@ -3,6 +3,8 @@ import { count } from "console";
 
 test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
+    //Navigate to Makemytrip homepage
+
     await page.goto("https://www.makemytrip.com/", {
         waitUntil: 'domcontentloaded',
         timeout: 50_000,
@@ -12,7 +14,7 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
     await page.waitForTimeout(2000);
 
-
+    //Close Popup
     const popupSelectors = [
         '[data-cy="closeModal"]',
         '.commonModal__close',
@@ -32,7 +34,7 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
         try {
             await closeBtn.waitFor({
                 state: 'visible',
-                timeout: 5000
+                timeout: 8000
             });
             console.log(` popup found : ${selectors}`);
 
@@ -51,12 +53,12 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
 
 
-
+    //Verify makemytrip URL
     await expect(page).toHaveURL("https://www.makemytrip.com/");
     console.log(`Step 1 Completed: Page loaded, popups handled`);
 
 
-
+    //Ensure "One Way" is selected
     const oneWaySelectors = [
         "li[data-cy='oneWayTrip']",
         '[class*="oneWay"]',
@@ -123,7 +125,7 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
         '.react-autosuggest__input'                    // React autocomplete input
     ).first();
 
-    // await fromSearchInput.waitFor({ state: 'visible', timeout: 8000 });
+    await fromSearchInput.waitFor({ state: 'visible', timeout: 8000 });
 
     await fromSearchInput.fill('Delhi');
 
