@@ -244,7 +244,7 @@ async function findCheapestDate(page: Page): Promise<DayPrice | null> {
         await cheapest.element.click();
         await page.waitForTimeout(500);
     } else {
-        console.log('No prices found in calendar cells');
+        console.log('No prices found in calendar cells..');
     }
 
     return cheapest;
