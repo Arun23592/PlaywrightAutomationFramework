@@ -27,12 +27,17 @@ export default defineConfig({
     // reporter: 'html',
     //reporter:list,
     reporter: [['html', { outputFolder: 'playwright-report', open: 'always' }],
-    ['list'],
-    ['line'],
-    ['dot'],
-    ['github'],
-    ['junit'],
-    ['allure-playwright', { outputFolder: 'allure-results' }]
+    ['playwright-smart-reporter', {
+        outputFile: 'smart-report.html',
+        historyFile: 'test-history.json',
+        maxHistoryRuns: 10,
+    }],
+        // ['list'],
+        // ['line'],
+        // ['dot'],
+        // ['github'],
+        // ['junit'],
+        // ['allure-playwright', { outputFolder: 'allure-results' }]
         // ['./my-custom-reporter.ts', { customOption: 'someValue' }]
     ],
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
