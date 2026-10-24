@@ -108,7 +108,6 @@ test('Select cheapest flight date on makeMyTrip', async ({ page }) => {
 
 
 
-
     //STEP 3: Set From (Delhi) and To (Chennai)
 
     // --- FROM city ---
