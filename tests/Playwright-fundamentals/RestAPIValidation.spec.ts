@@ -11,5 +11,7 @@ test("GET", async ({ request }) => {
     const body = await res.json();
     expect(body).toMatchObject({ id: 1, userId: 1 });
     expect(typeof body.title).toBe('string');
+    expect(await res.status()).toBe(200);
     console.log(body);
 })
+
