@@ -10,7 +10,8 @@ test.describe("Login (zoho crm)", () => {
         await page.waitForTimeout(3000);
         await page.getByPlaceholder('Email address or mobile number').fill('arunsubramani20@gmail.com');
         await page.getByRole('button', { name: 'Next' }).click();
-        await page.getByPlaceholder('Enter password').fill('WorkHard#2026!Go');
+
+        await page.getByPlaceholder('Enter password').pressSequentially('WorkHard#2026!Go');
         await page.locator('#nextbtn').click();
         await page.waitForTimeout(3000);
 
